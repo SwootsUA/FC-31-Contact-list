@@ -1,4 +1,5 @@
 import {Component} from 'react';
+import './FormControls.css';
 
 export class FormControls extends Component {
     render() {
@@ -7,9 +8,24 @@ export class FormControls extends Component {
 
         return (
             <>
-                <button onClick={exitEditMode}>New</button>
-                <button onClick={saveContact}>Save</button>
-                {inEditMode && <button onClick={deleteContact}>Delete</button>}
+                <div className="btn-container">
+                    {' '}
+                    <button onClick={exitEditMode}>New</button>{' '}
+                </div>
+                <div className="btn-container">
+                    <button onClick={saveContact}>Save</button>
+                </div>
+                {inEditMode && (
+                    <div className="btn-container">
+                        <button
+                            onClick={() => {
+                                deleteContact();
+                            }}
+                        >
+                            Delete
+                        </button>
+                    </div>
+                )}
             </>
         );
     }

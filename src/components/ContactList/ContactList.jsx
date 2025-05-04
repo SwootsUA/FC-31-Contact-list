@@ -1,23 +1,24 @@
 import {Component} from 'react';
 import ListItem from '../ListItem/ListItem';
+import './ContactList.css';
 
 export class ContactList extends Component {
     render() {
-        const {contacts, enterEditMode} = this.props;
+        const {contacts, enterEditMode, deleteContact} = this.props;
 
         return (
-            <>
-                <p>Contact List</p>
+            <div>
                 <ul>
                     {contacts.map(contact => (
                         <ListItem
                             contact={contact}
                             enterEditMode={enterEditMode}
                             key={contact.id}
+                            deleteContact={deleteContact}
                         />
                     ))}
                 </ul>
-            </>
+            </div>
         );
     }
 }

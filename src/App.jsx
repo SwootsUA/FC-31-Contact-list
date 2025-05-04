@@ -54,13 +54,21 @@ class App extends Component {
         }
     };
 
-    deleteContact = () => {
-        this.setState({
-            contacts: this.state.contacts.filter(
-                contact => contact.id !== this.state.editContact.id
-            ),
-        });
-        this.exitEditMode();
+    deleteContact = passedId => {
+        if (passedId) {
+            this.setState({
+                contacts: this.state.contacts.filter(
+                    contact => contact.id !== passedId
+                ),
+            });
+        } else {
+            this.setState({
+                contacts: this.state.contacts.filter(
+                    contact => contact.id !== this.state.editContact.id
+                ),
+            });
+            this.exitEditMode();
+        }
     };
 
     enterEditMode = contactId => {
@@ -101,16 +109,15 @@ class App extends Component {
                     <h1>Contact list</h1>
                 </header>
 
-                <main>
-                    <ContactList
-                        contacts={this.state.contacts}
-                        enterEditMode={this.enterEditMode}
-                    />
-                    <ContactInformation
-                        editContact={this.state.editContact}
-                        updateContactField={this.updateContactField}
-                    />
-                </main>
+                <ContactList
+                    contacts={this.state.contacts}
+                    enterEditMode={this.enterEditMode}
+                    deleteContact={this.deleteContact}
+                />
+                <ContactInformation
+                    editContact={this.state.editContact}
+                    updateContactField={this.updateContactField}
+                />
 
                 <FormControls
                     inEditMode={this.state.inEditMode}

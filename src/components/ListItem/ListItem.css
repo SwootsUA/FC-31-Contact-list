@@ -1,0 +1,18 @@
+li {
+    position: relative;
+    list-style: none;
+    text-align: start;
+    margin-bottom: 5px;
+    border: 2px solid #444;
+    border-radius: 4px;
+    padding: 5px;
+}
+
+.delete-user-btn {
+    position: absolute;
+    right: 5px;
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    padding: 0;
+}

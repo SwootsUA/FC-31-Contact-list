@@ -1,13 +1,22 @@
 import {Component} from 'react';
+import './ListItem.css';
 
 export class ListItem extends Component {
     render() {
-        const {contact, enterEditMode} = this.props;
+        const {contact, enterEditMode, deleteContact} = this.props;
 
         return (
-            <li onClick={() => enterEditMode(contact.id)}>
+            <li onDoubleClick={() => enterEditMode(contact.id)}>
                 {`${contact.firstName} ${contact.lastName}`}
-                <button>X</button>
+                <button
+                    className="delete-user-btn"
+                    onClick={e => {
+                        e.stopPropagation();
+                        deleteContact(contact.id);
+                    }}
+                >
+                    X
+                </button>
             </li>
         );
     }
