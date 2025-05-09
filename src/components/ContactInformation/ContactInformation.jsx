@@ -24,7 +24,7 @@ export class ContactInformation extends Component {
                         <input
                             type="text"
                             placeholder="First name"
-                            maxLength={15}
+                            maxLength={25}
                             onChange={e =>
                                 updateContactField('firstName', e.target.value)
                             }
@@ -43,7 +43,7 @@ export class ContactInformation extends Component {
                         <input
                             type="text"
                             placeholder="Last name"
-                            maxLength={15}
+                            maxLength={25}
                             onChange={e =>
                                 updateContactField('lastName', e.target.value)
                             }
@@ -62,7 +62,6 @@ export class ContactInformation extends Component {
                         <input
                             type="email"
                             placeholder="Email"
-                            pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"
                             onChange={e =>
                                 updateContactField('email', e.target.value)
                             }
