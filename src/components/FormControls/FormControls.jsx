@@ -18,6 +18,7 @@ export class FormControls extends Component {
                 {inEditMode && (
                     <div className="btn-container">
                         <button
+                            // to make sure arguments are empty and event aren't passed through
                             onClick={() => {
                                 deleteContact();
                             }}

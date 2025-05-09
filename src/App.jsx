@@ -15,60 +15,70 @@ class App extends Component {
             email: '',
             phone: '',
         },
-        contacts: [
-            {
-                id: nanoid(),
-                firstName: 'Kostiantyn',
-                lastName: 'Zakharchenko',
-                email: 'kostya20022210@gmail.com',
-                phone: '+380951231231',
-            },
-            {
-                id: nanoid(),
-                firstName: 'John',
-                lastName: 'Doe',
-                email: 'johndoe@gmail.com',
-                phone: '+380988888888',
-            },
-        ],
+        contacts: [],
     };
+
+    componentDidMount() {
+        const contacts = JSON.parse(localStorage.getItem('contacts'));
+
+        if (contacts) {
+            this.setState({
+                contacts: contacts,
+            });
+        } else {
+            this.setState({
+                contacts: [],
+            });
+        }
+    }
+
+    saveLocaly(contacts) {
+        localStorage.setItem('contacts', JSON.stringify(contacts));
+    }
 
     saveContact = () => {
         if (this.state.inEditMode) {
-            this.setState({
-                contacts: this.state.contacts.map(contact =>
-                    contact.id === this.state.editContact.id
-                        ? this.state.editContact
+            this.setState(state => {
+                const contacts = state.contacts.map(contact =>
+                    contact.id === state.editContact.id
+                        ? state.editContact
                         : contact
-                ),
+                );
+                this.saveLocaly(contacts);
+                return {
+                    contacts,
+                };
             });
         } else {
             const newContact = {
                 ...this.state.editContact,
                 id: nanoid(),
             };
-            this.setState({
-                contacts: [...this.state.contacts, newContact],
+            this.setState(state => {
+                const contacts = [...state.contacts, newContact];
+                this.saveLocaly(contacts);
+                return {
+                    contacts,
+                };
             });
             this.exitEditMode();
         }
     };
 
     deleteContact = passedId => {
-        if (passedId) {
-            this.setState({
-                contacts: this.state.contacts.filter(
-                    contact => contact.id !== passedId
-                ),
-            });
-        } else {
-            this.setState({
-                contacts: this.state.contacts.filter(
-                    contact => contact.id !== this.state.editContact.id
-                ),
-            });
-            this.exitEditMode();
-        }
+        this.setState(state => {
+            const deleteId = passedId ? passedId : state.editContact.id;
+            const contacts = state.contacts.filter(
+                contact => contact.id !== deleteId
+            );
+            if (deleteId === state.editContact.id) {
+                this.exitEditMode();
+            }
+            this.saveLocaly(contacts);
+            return {
+                contacts,
+            };
+        });
     };
 
     enterEditMode = contactId => {
