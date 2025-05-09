@@ -102,6 +102,7 @@ export class ContactInformation extends Component {
                 {inEditMode && (
                     <div className="btn-container form-delete">
                         <button
+                            type="button"
                             // to make sure arguments are empty and event aren't passed through
                             onClick={() => {
                                 deleteContact();
