@@ -7,7 +7,7 @@ export class ContactList extends Component {
         const {contacts, enterEditMode, deleteContact} = this.props;
 
         return (
-            <div>
+            <div className="scroll-box">
                 <ul>
                     {contacts.map(contact => (
                         <ListItem

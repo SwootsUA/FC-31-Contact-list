@@ -4,3 +4,6 @@ ul {
     height: 100%;
 }
 
+.scroll-box {
+    overflow-y: auto;
+}
