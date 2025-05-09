@@ -20,7 +20,7 @@ export class ContactInformation extends Component {
                 className="contact-info"
             >
                 <div className="form-info">
-                    <div>
+                    <div className="input-wrapper">
                         <input
                             type="text"
                             placeholder="First name"
@@ -39,7 +39,7 @@ export class ContactInformation extends Component {
                             X
                         </button>
                     </div>
-                    <div>
+                    <div className="input-wrapper">
                         <input
                             type="text"
                             placeholder="Last name"
@@ -58,7 +58,7 @@ export class ContactInformation extends Component {
                             X
                         </button>
                     </div>
-                    <div>
+                    <div className="input-wrapper">
                         <input
                             type="email"
                             placeholder="Email"
@@ -76,7 +76,7 @@ export class ContactInformation extends Component {
                             X
                         </button>
                     </div>
-                    <div>
+                    <div className="input-wrapper">
                         <input
                             type="tel"
                             placeholder="Phone number"

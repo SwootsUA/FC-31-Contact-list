@@ -6,10 +6,13 @@ li {
     border: 2px solid #444;
     border-radius: 4px;
     padding: 5px;
+    padding-right: 25px;
 }
 
 .delete-user-btn {
     position: absolute;
+    top: 50%;
+    translate: 0 -50%;
     right: 5px;
     width: 20px;
     height: 20px;
