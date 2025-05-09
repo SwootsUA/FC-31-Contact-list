@@ -1,7 +1,6 @@
 import {Component} from 'react';
 import './App.css';
 import ContactList from './components/ContactList/ContactList';
-import FormControls from './components/FormControls/FormControls';
 import ContactInformation from './components/ContactInformation/ContactInformation';
 import {nanoid} from 'nanoid';
 
@@ -124,17 +123,18 @@ class App extends Component {
                     enterEditMode={this.enterEditMode}
                     deleteContact={this.deleteContact}
                 />
+
                 <ContactInformation
+                    inEditMode={this.state.inEditMode}
                     editContact={this.state.editContact}
                     updateContactField={this.updateContactField}
-                />
-
-                <FormControls
-                    inEditMode={this.state.inEditMode}
                     saveContact={this.saveContact}
-                    exitEditMode={this.exitEditMode}
                     deleteContact={this.deleteContact}
                 />
+
+                <div className="btn-container">
+                    <button onClick={this.exitEditMode}>New</button>
+                </div>
             </>
         );
     }

@@ -14,5 +14,12 @@ header {
 }
 
 .contact-info {
-  grid-area: 2 / 2 / span 1 / span 2;
+  grid-area: 2 / 2 / span 2 / span 2;
+}
+
+.btn-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
 }

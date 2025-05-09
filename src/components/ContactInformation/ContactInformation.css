@@ -7,6 +7,9 @@ input {
 
 .contact-info {
     position: relative;
+    display: grid;
+    grid-template-rows: 600px 120px;
+    grid-template-columns: 1fr 1fr;
 }
 
 .clear-info {
@@ -17,4 +20,16 @@ input {
     height: 20px;
     border-radius: 5px;
     padding: 0;
+}
+
+.form-info {
+    grid-area: 1 / 1 / span 1 / span 2;
+}
+
+.form-submit {
+    grid-area: 2 / 1 / span 1 / span 1;
+}
+  
+.form-delete {
+    grid-area: 2 / 2 / span 1 / span 1;  
 }
