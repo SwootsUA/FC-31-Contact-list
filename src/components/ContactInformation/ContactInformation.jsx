@@ -24,10 +24,12 @@ export class ContactInformation extends Component {
                         <input
                             type="text"
                             placeholder="First name"
+                            maxLength={15}
                             onChange={e =>
                                 updateContactField('firstName', e.target.value)
                             }
                             value={editContact.firstName}
+                            required
                         />
                         <button
                             type="button"
@@ -41,10 +43,12 @@ export class ContactInformation extends Component {
                         <input
                             type="text"
                             placeholder="Last name"
+                            maxLength={15}
                             onChange={e =>
                                 updateContactField('lastName', e.target.value)
                             }
                             value={editContact.lastName}
+                            required
                         />
                         <button
                             type="button"
@@ -58,6 +62,7 @@ export class ContactInformation extends Component {
                         <input
                             type="email"
                             placeholder="Email"
+                            pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"
                             onChange={e =>
                                 updateContactField('email', e.target.value)
                             }
@@ -75,6 +80,7 @@ export class ContactInformation extends Component {
                         <input
                             type="tel"
                             placeholder="Phone number"
+                            maxLength={20}
                             onChange={e =>
                                 updateContactField('phone', e.target.value)
                             }
