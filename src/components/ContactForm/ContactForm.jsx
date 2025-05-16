@@ -1,7 +1,7 @@
 import {Component} from 'react';
-import './ContactInformation.css';
+import './ContactForm.css';
 
-export class ContactInformation extends Component {
+export class ContactForm extends Component {
     state = {
         currentContact: {...this.props.currentContact},
     };
@@ -136,4 +136,4 @@ export class ContactInformation extends Component {
     }
 }
 
-export default ContactInformation;
+export default ContactForm;

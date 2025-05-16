@@ -1,7 +1,7 @@
 import {Component} from 'react';
 import './App.css';
 import ContactList from './components/ContactList/ContactList';
-import ContactInformation from './components/ContactInformation/ContactInformation';
+import ContactForm from './components/ContactForm/ContactForm';
 import {nanoid} from 'nanoid';
 
 class App extends Component {
@@ -117,7 +117,7 @@ class App extends Component {
                     deleteContact={this.deleteContact}
                 />
 
-                <ContactInformation
+                <ContactForm
                     currentContact={this.state.currentContact}
                     saveContact={this.saveContact}
                     deleteContact={this.deleteContact}
