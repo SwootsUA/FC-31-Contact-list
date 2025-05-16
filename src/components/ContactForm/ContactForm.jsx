@@ -6,7 +6,7 @@ export class ContactForm extends Component {
         currentContact: {...this.props.currentContact},
     };
 
-    updateContactField = e => {
+    onInputChange = e => {
         this.setState({
             currentContact: {
                 ...this.state.currentContact,
@@ -49,7 +49,7 @@ export class ContactForm extends Component {
                             placeholder="First name"
                             maxLength={25}
                             name="firstName"
-                            onChange={this.updateContactField}
+                            onChange={this.onInputChange}
                             value={this.state.currentContact.firstName}
                             required
                         />
@@ -67,7 +67,7 @@ export class ContactForm extends Component {
                             placeholder="Last name"
                             maxLength={25}
                             name="lastName"
-                            onChange={this.updateContactField}
+                            onChange={this.onInputChange}
                             value={this.state.currentContact.lastName}
                             required
                         />
@@ -84,7 +84,7 @@ export class ContactForm extends Component {
                             type="email"
                             placeholder="Email"
                             name="email"
-                            onChange={this.updateContactField}
+                            onChange={this.onInputChange}
                             value={this.state.currentContact.email}
                         />
                         <button
@@ -101,7 +101,7 @@ export class ContactForm extends Component {
                             placeholder="Phone number"
                             maxLength={20}
                             name="phone"
-                            onChange={this.updateContactField}
+                            onChange={this.onInputChange}
                             value={this.state.currentContact.phone}
                         />
                         <button
