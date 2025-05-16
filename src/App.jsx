@@ -34,19 +34,19 @@ class App extends Component {
         localStorage.setItem('contacts', JSON.stringify(contacts));
     }
 
-    saveContact = currentContact => {
-        if (currentContact.id) {
-            this.editContact(currentContact);
+    saveContact = passedContact => {
+        if (passedContact.id) {
+            this.editContact(passedContact);
         } else {
-            this.addContact(currentContact);
+            this.addContact(passedContact);
         }
     };
 
-    editContact = currentContact => {
+    editContact = passedContact => {
         this.setState(state => {
             const contacts = state.contacts.map(contact =>
                 contact.id === state.currentContact.id
-                    ? currentContact
+                    ? passedContact
                     : contact
             );
             this.saveLocaly(contacts);
@@ -56,9 +56,9 @@ class App extends Component {
         });
     };
 
-    addContact = currentContact => {
+    addContact = passedContact => {
         const newContact = {
-            ...currentContact,
+            ...passedContact,
             id: nanoid(),
         };
         this.setState(state => {
@@ -92,10 +92,10 @@ class App extends Component {
         phone: '',
     });
 
-    enterEditMode = contactId => {
+    enterEditMode = passedId => {
         this.setState({
             currentContact: this.state.contacts.find(
-                contact => contact.id === contactId
+                contact => contact.id === passedId
             ),
         });
     };
