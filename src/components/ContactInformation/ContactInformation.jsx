@@ -2,39 +2,61 @@ import {Component} from 'react';
 import './ContactInformation.css';
 
 export class ContactInformation extends Component {
+    state = {
+        currentContact: {...this.props.currentContact},
+    };
+
+    updateContactField = e => {
+        this.setState({
+            currentContact: {
+                ...this.state.currentContact,
+                [e.target.name]: e.target.value,
+            },
+        });
+    };
+
+    clearContactField = e => {
+        this.setState({
+            currentContact: {
+                ...this.state.currentContact,
+                [e.target.parentElement.querySelector('input').name]: '',
+            },
+        });
+    };
+
+    static getDerivedStateFromProps(props, state) {
+        if (state.currentContact.id !== props.currentContact.id) {
+            return {currentContact: {...props.currentContact}};
+        } else {
+            return null;
+        }
+    }
+
+    onFormSubmit = e => {
+        e.preventDefault();
+        this.props.saveContact(this.state.currentContact);
+    };
+
     render() {
-        const {
-            inEditMode,
-            editContact,
-            updateContactField,
-            saveContact,
-            deleteContact,
-        } = this.props;
+        const {deleteContact} = this.props;
 
         return (
-            <form
-                onSubmit={e => {
-                    e.preventDefault();
-                    saveContact();
-                }}
-                className="contact-info"
-            >
+            <form onSubmit={this.onFormSubmit} className="contact-info">
                 <div className="form-info">
                     <div className="input-wrapper">
                         <input
                             type="text"
                             placeholder="First name"
                             maxLength={25}
-                            onChange={e =>
-                                updateContactField('firstName', e.target.value)
-                            }
-                            value={editContact.firstName}
+                            name="firstName"
+                            onChange={this.updateContactField}
+                            value={this.state.currentContact.firstName}
                             required
                         />
                         <button
                             type="button"
                             className="clear-info"
-                            onClick={() => updateContactField('firstName', '')}
+                            onClick={this.clearContactField}
                         >
                             X
                         </button>
@@ -44,16 +66,15 @@ export class ContactInformation extends Component {
                             type="text"
                             placeholder="Last name"
                             maxLength={25}
-                            onChange={e =>
-                                updateContactField('lastName', e.target.value)
-                            }
-                            value={editContact.lastName}
+                            name="lastName"
+                            onChange={this.updateContactField}
+                            value={this.state.currentContact.lastName}
                             required
                         />
                         <button
                             type="button"
                             className="clear-info"
-                            onClick={() => updateContactField('lastName', '')}
+                            onClick={this.clearContactField}
                         >
                             X
                         </button>
@@ -62,15 +83,14 @@ export class ContactInformation extends Component {
                         <input
                             type="email"
                             placeholder="Email"
-                            onChange={e =>
-                                updateContactField('email', e.target.value)
-                            }
-                            value={editContact.email}
+                            name="email"
+                            onChange={this.updateContactField}
+                            value={this.state.currentContact.email}
                         />
                         <button
                             type="button"
                             className="clear-info"
-                            onClick={() => updateContactField('email', '')}
+                            onClick={this.clearContactField}
                         >
                             X
                         </button>
@@ -80,15 +100,14 @@ export class ContactInformation extends Component {
                             type="tel"
                             placeholder="Phone number"
                             maxLength={20}
-                            onChange={e =>
-                                updateContactField('phone', e.target.value)
-                            }
-                            value={editContact.phone}
+                            name="phone"
+                            onChange={this.updateContactField}
+                            value={this.state.currentContact.phone}
                         />
                         <button
                             type="button"
                             className="clear-info"
-                            onClick={() => updateContactField('phone', '')}
+                            onClick={this.clearContactField}
                         >
                             X
                         </button>
@@ -99,7 +118,7 @@ export class ContactInformation extends Component {
                     <button type="submit">Save</button>
                 </div>
 
-                {inEditMode && (
+                {this.state.currentContact.id && (
                     <div className="btn-container form-delete">
                         <button
                             type="button"

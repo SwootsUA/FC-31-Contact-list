@@ -6,8 +6,7 @@ import {nanoid} from 'nanoid';
 
 class App extends Component {
     state = {
-        inEditMode: false,
-        editContact: {
+        currentContact: {
             id: '',
             firstName: '',
             lastName: '',
@@ -35,44 +34,21 @@ class App extends Component {
         localStorage.setItem('contacts', JSON.stringify(contacts));
     }
 
-    saveContact = () => {
-        if (this.state.inEditMode) {
-            this.setState(state => {
-                const contacts = state.contacts.map(contact =>
-                    contact.id === state.editContact.id
-                        ? state.editContact
-                        : contact
-                );
-                this.saveLocaly(contacts);
-                return {
-                    contacts,
-                };
-            });
+    saveContact = currentContact => {
+        if (currentContact.id) {
+            this.editContact(currentContact);
         } else {
-            const newContact = {
-                ...this.state.editContact,
-                id: nanoid(),
-            };
-            this.setState(state => {
-                const contacts = [...state.contacts, newContact];
-                this.saveLocaly(contacts);
-                return {
-                    contacts,
-                };
-            });
-            this.exitEditMode();
+            this.addContact(currentContact);
         }
     };
 
-    deleteContact = passedId => {
+    editContact = currentContact => {
         this.setState(state => {
-            const deleteId = passedId ? passedId : state.editContact.id;
-            const contacts = state.contacts.filter(
-                contact => contact.id !== deleteId
+            const contacts = state.contacts.map(contact =>
+                contact.id === state.currentContact.id
+                    ? currentContact
+                    : contact
             );
-            if (deleteId === state.editContact.id) {
-                this.exitEditMode();
-            }
             this.saveLocaly(contacts);
             return {
                 contacts,
@@ -80,35 +56,52 @@ class App extends Component {
         });
     };
 
+    addContact = currentContact => {
+        const newContact = {
+            ...currentContact,
+            id: nanoid(),
+        };
+        this.setState(state => {
+            const contacts = [...state.contacts, newContact];
+            this.saveLocaly(contacts);
+            const newState = {contacts, currentContact: this.getEmptyContact()};
+            return newState;
+        });
+    };
+
+    deleteContact = passedId => {
+        this.setState(state => {
+            const deleteId = passedId ? passedId : state.currentContact.id;
+            const contacts = state.contacts.filter(
+                contact => contact.id !== deleteId
+            );
+            const newState = {contacts};
+            if (deleteId === state.currentContact.id) {
+                newState.currentContact = this.getEmptyContact();
+            }
+            this.saveLocaly(contacts);
+            return newState;
+        });
+    };
+
+    getEmptyContact = () => ({
+        id: '',
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+    });
+
     enterEditMode = contactId => {
         this.setState({
-            inEditMode: true,
-            editContact: this.state.contacts.find(
+            currentContact: this.state.contacts.find(
                 contact => contact.id === contactId
             ),
         });
     };
 
     exitEditMode = () => {
-        this.setState({
-            inEditMode: false,
-            editContact: {
-                id: '',
-                firstName: '',
-                lastName: '',
-                email: '',
-                phone: '',
-            },
-        });
-    };
-
-    updateContactField = (field, value) => {
-        this.setState({
-            editContact: {
-                ...this.state.editContact,
-                [field]: value,
-            },
-        });
+        this.setState({currentContact: this.getEmptyContact()});
     };
 
     render() {
@@ -125,9 +118,7 @@ class App extends Component {
                 />
 
                 <ContactInformation
-                    inEditMode={this.state.inEditMode}
-                    editContact={this.state.editContact}
-                    updateContactField={this.updateContactField}
+                    currentContact={this.state.currentContact}
                     saveContact={this.saveContact}
                     deleteContact={this.deleteContact}
                 />
