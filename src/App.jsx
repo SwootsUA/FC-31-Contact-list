@@ -4,15 +4,17 @@ import ContactList from './components/ContactList/ContactList';
 import ContactForm from './components/ContactForm/ContactForm';
 import {nanoid} from 'nanoid';
 
+const EMPTY_CONTACT = {
+    id: '',
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+};
+
 class App extends Component {
     state = {
-        currentContact: {
-            id: '',
-            firstName: '',
-            lastName: '',
-            email: '',
-            phone: '',
-        },
+        currentContact: {...EMPTY_CONTACT},
         contacts: [],
     };
 
@@ -64,7 +66,7 @@ class App extends Component {
         this.setState(state => {
             const contacts = [...state.contacts, newContact];
             this.saveLocaly(contacts);
-            const newState = {contacts, currentContact: this.getEmptyContact()};
+            const newState = {contacts, currentContact: {...EMPTY_CONTACT}};
             return newState;
         });
     };
@@ -77,20 +79,12 @@ class App extends Component {
             );
             const newState = {contacts};
             if (deleteId === state.currentContact.id) {
-                newState.currentContact = this.getEmptyContact();
+                newState.currentContact = {...EMPTY_CONTACT};
             }
             this.saveLocaly(contacts);
             return newState;
         });
     };
-
-    getEmptyContact = () => ({
-        id: '',
-        firstName: '',
-        lastName: '',
-        email: '',
-        phone: '',
-    });
 
     enterEditMode = passedId => {
         this.setState({
@@ -101,7 +95,7 @@ class App extends Component {
     };
 
     exitEditMode = () => {
-        this.setState({currentContact: this.getEmptyContact()});
+        this.setState({currentContact: {...EMPTY_CONTACT}});
     };
 
     render() {
