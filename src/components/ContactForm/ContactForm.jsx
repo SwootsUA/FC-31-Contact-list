@@ -38,7 +38,7 @@ export class ContactForm extends Component {
     };
 
     render() {
-        const {deleteContact} = this.props;
+        const {deleteContact, inEdit} = this.props;
 
         return (
             <form onSubmit={this.onFormSubmit} className="contact-info">
@@ -118,7 +118,7 @@ export class ContactForm extends Component {
                     <button type="submit">Save</button>
                 </div>
 
-                {this.state.currentContact.id && (
+                {inEdit && (
                     <div className="btn-container form-delete">
                         <button
                             type="button"

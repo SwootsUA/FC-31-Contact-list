@@ -16,6 +16,7 @@ class App extends Component {
     state = {
         currentContact: {...EMPTY_CONTACT},
         contacts: [],
+        inEdit: false,
     };
 
     componentDidMount() {
@@ -37,7 +38,7 @@ class App extends Component {
     }
 
     saveContact = passedContact => {
-        if (passedContact.id) {
+        if (this.state.inEdit) {
             this.editContact(passedContact);
         } else {
             this.addContact(passedContact);
@@ -66,7 +67,8 @@ class App extends Component {
         this.setState(state => {
             const contacts = [...state.contacts, newContact];
             this.saveLocaly(contacts);
-            const newState = {contacts, currentContact: {...EMPTY_CONTACT}};
+            // generate new short id to update (clear) contact form
+            const newState = {contacts, currentContact: {...EMPTY_CONTACT, id: nanoid(5)}, inEdit: false};
             return newState;
         });
     };
@@ -80,6 +82,7 @@ class App extends Component {
             const newState = {contacts};
             if (deleteId === state.currentContact.id) {
                 newState.currentContact = {...EMPTY_CONTACT};
+                newState.inEdit = false;
             }
             this.saveLocaly(contacts);
             return newState;
@@ -91,11 +94,12 @@ class App extends Component {
             currentContact: this.state.contacts.find(
                 contact => contact.id === passedId
             ),
+            inEdit: true,
         });
     };
 
     exitEditMode = () => {
-        this.setState({currentContact: {...EMPTY_CONTACT}});
+        this.setState({currentContact: {...EMPTY_CONTACT}, inEdit: false,});
     };
 
     render() {
@@ -113,6 +117,7 @@ class App extends Component {
 
                 <ContactForm
                     currentContact={this.state.currentContact}
+                    inEdit={this.state.inEdit}
                     saveContact={this.saveContact}
                     deleteContact={this.deleteContact}
                 />
