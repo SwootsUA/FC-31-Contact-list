@@ -115,6 +115,7 @@ class App extends Component {
                     currentContact={this.state.currentContact}
                     saveContact={this.saveContact}
                     deleteContact={this.deleteContact}
+                    EMPTY_CONTACT={EMPTY_CONTACT}
                 />
 
                 <div className="btn-container">

@@ -4,6 +4,7 @@ import './ContactForm.css';
 export class ContactForm extends Component {
     state = {
         currentContact: {...this.props.currentContact},
+        EMPTY_CONTACT: {...this.props.EMPTY_CONTACT},
     };
 
     onInputChange = e => {
@@ -24,6 +25,14 @@ export class ContactForm extends Component {
         });
     };
 
+    clearContact = () => {
+        this.setState({
+            currentContact: {
+                ...this.state.EMPTY_CONTACT,
+            },
+        });
+    };
+
     static getDerivedStateFromProps(props, state) {
         if (state.currentContact.id !== props.currentContact.id) {
             return {currentContact: {...props.currentContact}};
@@ -35,6 +44,10 @@ export class ContactForm extends Component {
     onFormSubmit = e => {
         e.preventDefault();
         this.props.saveContact(this.state.currentContact);
+
+        if (!this.state.currentContact.id) {
+            this.clearContact();
+        }
     };
 
     render() {
